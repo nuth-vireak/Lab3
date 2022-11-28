@@ -1,124 +1,79 @@
-# Create a Window Powershell script that can do the following:
-# 1. Create a function named "money_exchange" with three parameters: amount, from, and to. 
-# Function money_exchange will convert the currency type in the variable "from" to the currency type in the variable "to".
-# Example: After calling the function money_exchange if the variable "from" = "dollars" and the variable "to" = "riel".
-# it mean that the function will convert the currency type from dollars to riel, then will return the amount received.
-# The exchange rates are as follows:
-# Riel to Dollar or Dollar to Riel Exchange rate 1 $ = 4100R
-# Riel to Baht or Baht to Riel Exchange rate 1 baht = 100 R
-# Riel to Euro or Euro to Riel Exchange rate 1 Euro = R5,000
-# Riel to franc or fran to riel exchange rate 1 franc = R500
+# AUTHOR: NUTH VIREAK
 
-# In the above script, write a script that allows the user to enter the values ​​amount,
-# from, and to and call the function money_exchange and throw the three parameters as parameters of the money_exchange function.
-# Displays the value returned from the money exchange function.
-
-# 1. Create a function named "money_exchange" with three parameters: amount, from, and to.
 function money_exchange {
 
     param(
         [int]$amount,
-        [string]$from,
-        [string]$to
+        [string]$currency_from,
+        [string]$currency_to
     )
 
-    # convert the currency type in the variable "from" to the currency type in the variable "to".
-    switch ($from) {
-        "dollars" {
-            switch ($to) {
-                "riel" {
-                    $amount = $amount * 4100
-                }
-                "baht" {
-                    $amount = $amount * 4100 / 100
-                }
-                "euro" {
-                    $amount = $amount * 4100 / 5000
-                }
-                "franc" {
-                    $amount = $amount * 4100 / 500
-                }
-            }
-        }
-        "riel" {
-            switch ($to) {
-                "dollars" {
-                    $amount = $amount / 4100
-                }
-                "baht" {
-                    $amount = $amount / 100
-                }
-                "euro" {
-                    $amount = $amount / 5000
-                }
-                "franc" {
-                    $amount = $amount / 500
-                }
-            }
-        }
-        "baht" {
-            switch ($to) {
-                "dollars" {
-                    $amount = $amount * 100 / 4100
-                }
-                "riel" {
-                    $amount = $amount * 100
-                }
-                "euro" {
-                    $amount = $amount * 100 / 5000
-                }
-                "franc" {
-                    $amount = $amount * 100 / 500
-                }
-            }
-        }
-        "euro" {
-            switch ($to) {
-                "dollars" {
-                    $amount = $amount * 5000 / 4100
-                }
-                "riel" {
-                    $amount = $amount * 5000
-                }
-                "baht" {
-                    $amount = $amount * 5000 / 100
-                }
-                "franc" {
-                    $amount = $amount * 5000 / 500
-                }
-            }
-        }
-        "franc" {
-            switch ($to) {
-                "dollars" {
-                    $amount = $amount * 500 / 4100
-                }
-                "riel" {
-                    $amount = $amount * 500
-                }
-                "baht" {
-                    $amount = $amount * 500 / 100
-                }
-                "euro" {
-                    $amount = $amount * 500 / 5000
-                }
-            }
-        }
+    # if the currency_from is "Riel" and currency_to is "Dollar"
+    if ($currency_from -eq "Riel" -and $currency_to -eq "Dollar") {
+        # return the amount divided by 4100
+        return $amount / 4100
+    }
+
+    # if the currency_from is "Dollar" and currency_to is "Riel"
+    if ($currency_from -eq "Dollar" -and $currency_to -eq "Riel") {
+        # return the amount multiplied by 4100
+        return $amount * 4100
+    }
+
+    # if the currency_from is "Riel" and currency_to is "Baht"
+    if ($currency_from -eq "Riel" -and $currency_to -eq "Baht") {
+        # return the amount divided by 100
+        return $amount / 100
+    }
+
+    # if the currency_from is "Baht" and currency_to is "Riel"
+    if ($currency_from -eq "Baht" -and $currency_to -eq "Riel") {
+        # return the amount multiplied by 100
+        return $amount * 100
+    }
+
+    # if the currency_from is "Riel" and currency_to is "Euro"
+    if ($currency_from -eq "Riel" -and $currency_to -eq "Euro") {
+        # return the amount divided by 5000
+        return $amount / 5000
+    }
+
+    # if the currency_from is "Euro" and currency_to is "Riel"
+    if ($currency_from -eq "Euro" -and $currency_to -eq "Riel") {
+        # return the amount multiplied by 5000
+        return $amount * 5000
+    }
+
+    # if the currency_from is "Riel" and currency_to is "Franc"
+    if ($currency_from -eq "Riel" -and $currency_to -eq "Franc") {
+        # return the amount divided by 4500
+        return $amount / 4500
+    }
+
+    # if the currency_from is "Franc" and currency_to is "Riel"
+    if ($currency_from -eq "Franc" -and $currency_to -eq "Riel") {
+        # return the amount multiplied by 4500
+        return $amount * 4500
     }
 }
 
-# In the above script, write a script that allows the user to enter the values ​​amount,
-# from, and to and call the function money_exchange and throw the three parameters as parameters of the money_exchange function.
-# Displays the value returned from the money exchange function.
-Write-Host "Enter the amount: "
-$amount = Read-Host
-Write-Host "Enter the currency type: "
-$from = Read-Host
-Write-Host "Enter the currency type to convert: "
-$to = Read-Host
+# Input Amount from user
+$amount = Read-Host "Enter Amount: "
 
-# call the function money_exchange and throw the three parameters as parameters of the money_exchange function.
-money_exchange $amount $from $to
+# Input Currency From
+$currency_from = Read-Host "Enter Currency From: "
 
-# Displays the value returned from the money exchange function.
-Write-Host "The amount is: $amount"
+# Input Currency To
+$currency_to = Read-Host "Enter Currency To: "
+
+# call the function "money_exchange" with the amount, currency_from and currency_to and store the result in a variable "result"
+$result = money_exchange -amount $amount -currency_from $currency_from -currency_to $currency_to
+
+# display the result of the calculation and print the result to the console
+Write-Host "--------------------------------"
+Write-Host "Amount : [$amount]"
+Write-Host "Currency From : [$currency_from]"
+Write-Host "Currency To : [$currency_to]"
+Write-Host "-------------Result-------------"
+Write-Host "Amount received:" $result.ToString("N2")
+Write-Host "--------------------------------"
