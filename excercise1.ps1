@@ -77,3 +77,6 @@ Write-Host "Currency To : [$currency_to]"
 Write-Host "-------------Result-------------"
 Write-Host "Amount received:" $result.ToString("N2")
 Write-Host "--------------------------------"
+
+# pause the script
+read-host "Press Enter to continue..."

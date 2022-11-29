@@ -1,74 +1,87 @@
 # AUTHOR: NUTH VIREAK
 
-# create hash table of student_list to store number of students
-# each student has an id, name
-# $student_list = @{
-    
-#     "student1" = @{
-#         "id" = 1
-#         "name" = "Nuth Vireak"
-#     }
-
-#     "student2" = @{
-#         "id" = 2
-#         "name" = "Sokheng Seng"
-#     }
-# }
-
-# # print student 1 information
-# Write-Host "Student 1 Information"
-# Write-Host "ID: [$($student_list.student1.id)]"
-# Write-Host "Name: [$($student_list.student1.name)]"
-
-# # print all student information using foreach loop
-# Write-Host "All Student Information"
-# foreach ($student in $student_list.GetEnumerator()) {
-#     Write-Host "ID: [$($student.Value.id)]"
-#     Write-Host "Name: [$($student.Value.name)]"
-# }
-
 $student_info = @{}
 $student_list = @()
 
-# Create menu
-Write-Host "--------------------------------"
-Write-Host "1. Insert new student"
-Write-Host "2. Display student"
-Write-Host "--------------------------------"
-
-# using loop to input student information using switch case
 while ($true) {
 
-    $choice = Read-Host "Enter your choice: "
+    # Create menu
+    Write-Host "MENU-----------------------"
+    Write-Host "1. Insert new student"
+    Write-Host "2. Delete student"
+    Write-Host "3. Display student"
+    Write-Host "---------------------------"
+
+    # Input choice
+    [int]$choice = Read-Host "Enter your choice: "
 
     switch ($choice) {
 
+        # Insert new student
         1 {
+            Write-Host ""
+
             # Input student id
-            $student_id = Read-Host "Enter student id: "
+            [int]$student_id = Read-Host "Enter student id: "
 
             # Input student name
             $student_name = Read-Host "Enter student name: "
 
-            # store student information in a hash table student[]
+            # Input student skill
+            $student_skill = Read-Host "Enter student skill: "
+
+            # Input student department
+            $student_department = Read-Host "Enter student department: "
+
+            Write-Host ""
+
+            # Add student informatoin to student_info
             $student_info = @{
                 "id" = $student_id
                 "name" = $student_name
+                "skill" = $student_skill
+                "department" = $student_department
             }
 
-            # add student information to student_list
+            # Add student_info to student_list
             $student_list += $student_info
-        }
-        2 {
-            # print all student information using foreach loop student[1], student[2], student[3]
-            Write-Host "All Student Information"
-            foreach ($student_info in $student_list) {
 
-                Write-Host "Student Index: [$($student_list.IndexOf($student_info))]"
-                Write-Host "ID: [$($student_info.id)]"
-                Write-Host "Name: [$($student_info.name)]"
+            Write-Host "Student information has been inserted successfully!"
+
+            Write-Host ""
+        }
+
+        # Delete student
+        2 {
+            Write-Host ""
+
+            # Input student id
+            [int]$student_id = Read-Host "Enter student id: "
+
+            Write-Host ""
+
+            # Remove value from student_info by student_id
+            $student_list = $student_list | Where-Object { $_.id -ne $student_id }
+            
+            Write-Host ""
+            Write-Host "Student information has been deleted successfully!"
+            Write-Host ""
+        }
+
+        # Display student
+        3 {
+            Write-Host ""
+            Write-Host "Student Information ---------------------------------------------------------------------------------"
+            Write-Host "ID`t`tNAME`t`tSKILL`t`tDEPARTMENT"
+            foreach ($student_info in $student_list) {
+                Write-Host "$($student_info.id)`t`t$($student_info.name)`t`t$($student_info.skill)`t`t$($student_info.department)"
             }
+            Write-Host "-----------------------------------------------------------------------------------------------------"
+            Write-Host ""
         }
     }
 }
+
+# pause the script
+read-host "Press Enter to continue..."
 
